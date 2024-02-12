@@ -116,11 +116,11 @@ export default function Home() {
 
             <div className="w-1/2 my-auto text-center ">
               <img
-                className="mb-5 mx-auto h-60"
+                className=" wiggle mb-5 mx-auto h-60"
                 src={curProduct.imageLink}
                 alt=""
               />
-              <p className="font-bold text-xl">{curProduct.name}</p>
+              <p className="test font-bold text-xl">{curProduct.name}</p>
               <p>{curProduct.chain}</p>
               <p className="mt-5 mb-3 text-gray-600">MAKSAB</p>
               <button
