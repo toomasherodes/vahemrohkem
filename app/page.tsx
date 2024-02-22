@@ -11,6 +11,7 @@ export default function Home() {
   }
   const [prevProduct, setPrevProduct] = useState<productInterface>();
   const [curProduct, setCurProduct] = useState<productInterface>();
+  const [backupProduct, setBackupProduct] = useState<productInterface>();
 
   const [data, setData] = useState<string[][]>();
   const [chains, setChains] = useState<string[]>([]);
@@ -34,6 +35,7 @@ export default function Home() {
   useEffect(() => {
     setPrevProduct(getRandomProductWithPrice());
     setCurProduct(getRandomProductWithPrice());
+    setBackupProduct(getRandomProductWithPrice());
   }, [data]);
 
   const getRandomProductWithPrice = (): productInterface => {
@@ -68,7 +70,8 @@ export default function Home() {
 
   const handleTestClick = () => {
     setPrevProduct(curProduct);
-    setCurProduct(getRandomProductWithPrice());
+    setCurProduct(backupProduct);
+    setBackupProduct(getRandomProductWithPrice);
   };
 
   const handleHigherGuess = () => {
@@ -124,7 +127,7 @@ export default function Home() {
               <p>{curProduct.chain}</p>
               <p className="mt-5 mb-3 text-gray-600">MAKSAB</p>
               <button
-                className="bg-green-500 text-white font-bold py-2 px-4 rounded-full mx-2  hover:bg-green-700  border-b-4 border-green-700"
+                className="bg-green-500 text-white font-bold py-2 px-4 rounded-full mx-2 hover:bg-green-700 border-b-4 border-green-700"
                 onClick={handleHigherGuess}
               >
                 ROHKEM
