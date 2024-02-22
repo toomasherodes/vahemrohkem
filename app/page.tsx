@@ -87,7 +87,7 @@ export default function Home() {
     if (curProduct && prevProduct && curProduct?.price < prevProduct?.price) {
       correctGuess();
     } else {
-      wrongGuess();
+      correctGuess();
     }
   };
 
@@ -107,37 +107,41 @@ export default function Home() {
   };
 
   return (
-    <main className=" z-0">
-      <div className="w-full h-full absolute top-0 flex justify-around z-[-1]">
+    <main className="z-0">
+      <div className="w-full h-full absolute flex justify-around z-[-1]">
         <div className="m-auto w-1 h-1/2 bg-black"></div>
       </div>
       {curProduct ? (
         <>
           <div className="w-full h-screen flex justify-evenly bg-transparent">
-            <div className="w-1/2 my-auto text-center bg-transparent">
+            <div className="flex flex-col items-center justify-center w-1/2 h-screen  text-center bg-transparent mt-4">
               {moveToRightSide ? (
                 <></>
               ) : (
-                <div className="flex flex-col items-center justify-between bg-transparent">
+                <>
                   <img className="h-60" src={prevProduct?.imageLink} alt="" />
-                  <p className="font-bold text-xl">{prevProduct?.name ?? ""}</p>
-                  <p>{prevProduct?.chain}</p>
-                  <div className="h-40">
-                    <p className="font-bold text-xl">{prevProduct?.price}€</p>
+
+                  <div className="h-48">
+                    <p className="font-bold text-xl">{prevProduct?.name ?? ""}</p>
+                    <p>{prevProduct?.chain}</p>
+                    <div className="h-40">
+                      <p className="font-bold text-xl">{prevProduct?.price}€</p>
+                    </div>
                   </div>
-                </div>
+                </>
+                
               )}
             </div>
 
             <div
-              className={classNames("w-1/2 my-auto text-center", {
+              className={classNames("flex flex-col items-center justify-center w-1/2 h-screen  text-center mt-4", {
                 "-translate-x-full transition": moveToRightSide,
               })}
             >
-              <div className="flex flex-col items-center justify-between">
+             
                 <img className="h-60" src={curProduct.imageLink} alt="" />
 
-                <div>
+                <div className="h-48">
                   <p className="test font-bold text-xl">{curProduct.name}</p>
                   <p>{curProduct.chain}</p>
                   <div className="h-40">
@@ -158,7 +162,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          
         </>
       ) : (
         <></>
