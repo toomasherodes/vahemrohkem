@@ -107,35 +107,25 @@ export default function Home() {
   };
 
   return (
-    <main className="bg-gray-50">
+    <main className=" z-0">
+      <div className="w-full h-full absolute top-0 flex justify-around z-[-1]">
+        <div className="m-auto w-1 h-1/2 bg-black"></div>
+      </div>
       {curProduct ? (
         <>
-          <div className="w-full h-screen flex justify-evenly">
-            <div className="w-1/2 my-auto text-center border-r-4 border-black">
+          <div className="w-full h-screen flex justify-evenly bg-transparent">
+            <div className="w-1/2 my-auto text-center bg-transparent">
               {moveToRightSide ? (
                 <></>
               ) : (
-                
-                <div className="flex flex-col items-center justify-between">
-                  <img
-                    className="h-60"
-                    src={prevProduct?.imageLink}
-                    alt=""
-                  />
-                  <p className="font-bold text-xl">
-                    {prevProduct?.name ?? ""}
-                  </p>
+                <div className="flex flex-col items-center justify-between bg-transparent">
+                  <img className="h-60" src={prevProduct?.imageLink} alt="" />
+                  <p className="font-bold text-xl">{prevProduct?.name ?? ""}</p>
                   <p>{prevProduct?.chain}</p>
-                  <div className="h-24">
-                    <p className="font-bold text-xl">
-                      {prevProduct?.price}€
-                    </p>
-                  
+                  <div className="h-40">
+                    <p className="font-bold text-xl">{prevProduct?.price}€</p>
                   </div>
-
                 </div>
-          
-      
               )}
             </div>
 
@@ -144,38 +134,29 @@ export default function Home() {
                 "-translate-x-full transition": moveToRightSide,
               })}
             >
-
               <div className="flex flex-col items-center justify-between">
-                <img
-                  className="h-60"
-                  src={curProduct.imageLink}
-                  alt=""
-                />
+                <img className="h-60" src={curProduct.imageLink} alt="" />
 
                 <div>
-                    <p className="test font-bold text-xl">{curProduct.name}</p>
-                    <p>{curProduct.chain}</p>
-                    <div className="h-24">
-                      <p className="text-gray-600">MAKSAB</p>
-                      <button
-                        className="bg-green-500 text-white font-bold h-10 rounded-full hover:bg-green-700 border-b-4 border-green-700"
-                        onClick={handleHigherGuess}
-                      >
-                        ROHKEM
-                      </button>
-                      <button
-                        className="bg-red-500 text-white font-bold h-10 rounded-full hover:bg-red-700 border-red-700"
-                        onClick={handleLowerGuess}
-                      >
-                        VÄHEM
-                      </button>
+                  <p className="test font-bold text-xl">{curProduct.name}</p>
+                  <p>{curProduct.chain}</p>
+                  <div className="h-40">
+                    <p className="text-gray-600 mt-1">MAKSAB</p>
+                    <button
+                      className="py-2 px-4 bg-green-500 text-white font-bold h-10 rounded-full hover:bg-green-700 border-b-4 border-green-700"
+                      onClick={handleHigherGuess}
+                    >
+                      ROHKEM
+                    </button>
+                    <button
+                      className=" py-2 px-4 m-1 bg-red-500 text-white font-bold h-10 rounded-full hover:bg-red-700 border-b-4 border-red-700"
+                      onClick={handleLowerGuess}
+                    >
+                      VÄHEM
+                    </button>
                   </div>
-                  
                 </div>
-
               </div>
-              
-              
             </div>
           </div>
         </>
