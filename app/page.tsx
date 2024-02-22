@@ -61,7 +61,7 @@ export default function Home() {
       return {
         name: product,
         chain: chain,
-        price: parseInt(price),
+        price: parseFloat(price),
         imageLink: imageLink,
       };
     } else {
@@ -95,9 +95,9 @@ export default function Home() {
     setScore(score + 1);
     setMoveToRightSide(true);
     setTimeout(() => {
-      setMoveToRightSide(false);
       handleTestClick();
-    }, 500);
+      setMoveToRightSide(false);
+    }, 350);
   };
 
   const wrongGuess = () => {
@@ -110,29 +110,28 @@ export default function Home() {
     <main className="bg-gray-50">
       {curProduct ? (
         <>
-          {" "}
           <div className="w-full h-screen flex justify-evenly">
-            {moveToRightSide ? (
-              <>PAREMALE</>
-            ) : (
-              <>
-                {" "}
-                <div className="w-1/2 my-auto text-center border-r-4 border-black">
+            <div className="w-1/2 my-auto text-center border-r-4 border-black">
+              {moveToRightSide ? (
+                <></>
+              ) : (
+                <>
                   <img
                     className="mx-auto mb-5 h-60"
                     src={prevProduct?.imageLink}
                     alt=""
                   />
-                  <p className="font-bold text-xl ">
+                  <p className="font-bold text-xl">
                     {prevProduct?.name ?? ""}
                   </p>
                   <p>{prevProduct?.chain}</p>
                   <p className="font-bold text-xl mt-7">
                     {prevProduct?.price}€
                   </p>
-                </div>
-              </>
-            )}
+                  <div className="h-10 w-1"></div>
+                </>
+              )}
+            </div>
 
             <div
               className={classNames("w-1/2 my-auto text-center", {
@@ -148,7 +147,7 @@ export default function Home() {
               <p>{curProduct.chain}</p>
               <p className="mt-5 mb-3 text-gray-600">MAKSAB</p>
               <button
-                className="bg-green-500 text-white font-bold py-2 px-4 rounded-full mx-2 hover:bg-green-700 border-b-4 border-green-700"
+                className="bg-green-500 text-white font-bold h-10 py-2 px-4 rounded-full mx-2 hover:bg-green-700 border-b-4 border-green-700"
                 onClick={handleHigherGuess}
               >
                 ROHKEM
