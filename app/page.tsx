@@ -87,7 +87,7 @@ export default function Home() {
     if (curProduct && prevProduct && curProduct?.price < prevProduct?.price) {
       correctGuess();
     } else {
-      correctGuess();
+      wrongGuess();
     }
   };
 
@@ -115,9 +115,10 @@ export default function Home() {
               {moveToRightSide ? (
                 <></>
               ) : (
-                <>
+                
+                <div className="flex flex-col items-center justify-between">
                   <img
-                    className="mx-auto mb-5 h-60"
+                    className="h-60"
                     src={prevProduct?.imageLink}
                     alt=""
                   />
@@ -125,11 +126,16 @@ export default function Home() {
                     {prevProduct?.name ?? ""}
                   </p>
                   <p>{prevProduct?.chain}</p>
-                  <p className="font-bold text-xl mt-7">
-                    {prevProduct?.price}€
-                  </p>
-                  <div className="h-10 w-1"></div>
-                </>
+                  <div className="h-24">
+                    <p className="font-bold text-xl">
+                      {prevProduct?.price}€
+                    </p>
+                  
+                  </div>
+
+                </div>
+          
+      
               )}
             </div>
 
@@ -138,26 +144,38 @@ export default function Home() {
                 "-translate-x-full transition": moveToRightSide,
               })}
             >
-              <img
-                className=" wiggle mb-5 mx-auto h-60"
-                src={curProduct.imageLink}
-                alt=""
-              />
-              <p className="test font-bold text-xl">{curProduct.name}</p>
-              <p>{curProduct.chain}</p>
-              <p className="mt-5 mb-3 text-gray-600">MAKSAB</p>
-              <button
-                className="bg-green-500 text-white font-bold h-10 py-2 px-4 rounded-full mx-2 hover:bg-green-700 border-b-4 border-green-700"
-                onClick={handleHigherGuess}
-              >
-                ROHKEM
-              </button>
-              <button
-                className="bg-red-500 text-white font-bold py-2 px-4 rounded-full mx-2 hover:bg-red-700 border-b-4 border-red-700"
-                onClick={handleLowerGuess}
-              >
-                VÄHEM
-              </button>
+
+              <div className="flex flex-col items-center justify-between">
+                <img
+                  className="h-60"
+                  src={curProduct.imageLink}
+                  alt=""
+                />
+
+                <div>
+                    <p className="test font-bold text-xl">{curProduct.name}</p>
+                    <p>{curProduct.chain}</p>
+                    <div className="h-24">
+                      <p className="text-gray-600">MAKSAB</p>
+                      <button
+                        className="bg-green-500 text-white font-bold h-10 rounded-full hover:bg-green-700 border-b-4 border-green-700"
+                        onClick={handleHigherGuess}
+                      >
+                        ROHKEM
+                      </button>
+                      <button
+                        className="bg-red-500 text-white font-bold h-10 rounded-full hover:bg-red-700 border-red-700"
+                        onClick={handleLowerGuess}
+                      >
+                        VÄHEM
+                      </button>
+                  </div>
+                  
+                </div>
+
+              </div>
+              
+              
             </div>
           </div>
         </>
