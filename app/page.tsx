@@ -15,6 +15,7 @@ export default function Home() {
   const [data, setData] = useState<string[][]>();
   const [chains, setChains] = useState<string[]>([]);
   const [score, setScore] = useState<number>(0);
+  const [moveToRightSide, setMoveToRightSide] = useState<boolean>(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,7 +28,6 @@ export default function Home() {
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
   }, []);
 
@@ -114,7 +114,7 @@ export default function Home() {
               <p className="font-bold text-xl mt-7">{prevProduct?.price}€</p>
             </div>
 
-            <div className="w-1/2 my-auto text-center ">
+            <div className='w-1/2 my-auto text-center'>
               <img
                 className=" wiggle mb-5 mx-auto h-60"
                 src={curProduct.imageLink}
