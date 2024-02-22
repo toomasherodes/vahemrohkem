@@ -1,4 +1,5 @@
 "use client";
+import classNames from "classnames";
 import "./globals.css";
 import { useState, useEffect } from "react";
 
@@ -60,7 +61,7 @@ export default function Home() {
       return {
         name: product,
         chain: chain,
-        price: Number(price),
+        price: parseInt(price),
         imageLink: imageLink,
       };
     } else {
@@ -86,13 +87,17 @@ export default function Home() {
     if (curProduct && prevProduct && curProduct?.price < prevProduct?.price) {
       correctGuess();
     } else {
-      wrongGuess();
+      correctGuess();
     }
   };
 
-  const correctGuess = () => {
+  const correctGuess = async () => {
     setScore(score + 1);
-    handleTestClick();
+    setMoveToRightSide(true);
+    setTimeout(() => {
+      setMoveToRightSide(false);
+      handleTestClick();
+    }, 500);
   };
 
   const wrongGuess = () => {
@@ -105,19 +110,35 @@ export default function Home() {
     <main className="bg-gray-50">
       {curProduct ? (
         <>
+          {" "}
           <div className="w-full h-screen flex justify-evenly">
-            <div className="w-1/2 my-auto text-center border-r-4 border-black">
-              <img
-                className="mx-auto mb-5 h-60"
-                src={prevProduct?.imageLink}
-                alt=""
-              />
-              <p className="font-bold text-xl ">{prevProduct?.name ?? ""}</p>
-              <p>{prevProduct?.chain}</p>
-              <p className="font-bold text-xl mt-7">{prevProduct?.price}€</p>
-            </div>
+            {moveToRightSide ? (
+              <>PAREMALE</>
+            ) : (
+              <>
+                {" "}
+                <div className="w-1/2 my-auto text-center border-r-4 border-black">
+                  <img
+                    className="mx-auto mb-5 h-60"
+                    src={prevProduct?.imageLink}
+                    alt=""
+                  />
+                  <p className="font-bold text-xl ">
+                    {prevProduct?.name ?? ""}
+                  </p>
+                  <p>{prevProduct?.chain}</p>
+                  <p className="font-bold text-xl mt-7">
+                    {prevProduct?.price}€
+                  </p>
+                </div>
+              </>
+            )}
 
-            <div className='w-1/2 my-auto text-center'>
+            <div
+              className={classNames("w-1/2 my-auto text-center", {
+                "-translate-x-full transition": moveToRightSide,
+              })}
+            >
               <img
                 className=" wiggle mb-5 mx-auto h-60"
                 src={curProduct.imageLink}
@@ -147,7 +168,6 @@ export default function Home() {
       <h1 className="absolute top-5 right-10 font-bold text-xl">
         Skoor: {score}
       </h1>
-
     </main>
   );
 }
