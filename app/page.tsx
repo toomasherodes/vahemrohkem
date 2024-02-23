@@ -18,6 +18,7 @@ export default function Home() {
   const [chains, setChains] = useState<string[]>([]);
   const [score, setScore] = useState<number>(0);
   const [moveToRightSide, setMoveToRightSide] = useState<boolean>(false);
+  const [displayCurPrice, setDisplayCurPrice] = useState<boolean>(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -93,11 +94,15 @@ export default function Home() {
 
   const correctGuess = async () => {
     setScore(score + 1);
-    setMoveToRightSide(true);
+    setDisplayCurPrice(true);
     setTimeout(() => {
-      handleTestClick();
-      setMoveToRightSide(false);
-    }, 350);
+      setMoveToRightSide(true);
+      setTimeout(() => {
+        handleTestClick();
+        setMoveToRightSide(false);
+        setDisplayCurPrice(false);
+      }, 350);
+    }, 500);
   };
 
   const wrongGuess = () => {
@@ -122,47 +127,62 @@ export default function Home() {
                   <img className="h-60" src={prevProduct?.imageLink} alt="" />
 
                   <div className="h-48">
-                    <p className="font-bold text-xl">{prevProduct?.name ?? ""}</p>
+                    <p className="font-bold text-xl">
+                      {prevProduct?.name ?? ""}
+                    </p>
                     <p>{prevProduct?.chain}</p>
                     <div className="h-40">
-                      <p className="font-bold text-xl">{prevProduct?.price}€</p>
+                      <p className="font-bold text-xl mt-2">
+                        {prevProduct?.price.toFixed(2)}€
+                      </p>
                     </div>
                   </div>
                 </>
-                
               )}
             </div>
 
             <div
-              className={classNames("flex flex-col items-center justify-center w-1/2 h-screen  text-center mt-4", {
-                "-translate-x-full transition": moveToRightSide,
-              })}
+              className={classNames(
+                "flex flex-col items-center justify-center w-1/2 h-screen  text-center mt-4",
+                {
+                  "-translate-x-full transition": moveToRightSide,
+                }
+              )}
             >
-             
-                <img className="h-60" src={curProduct.imageLink} alt="" />
+              <img className="h-60" src={curProduct.imageLink} alt="" />
 
-                <div className="h-48">
-                  <p className="test font-bold text-xl">{curProduct.name}</p>
-                  <p>{curProduct.chain}</p>
-                  <div className="h-40">
-                    <p className="text-gray-600 mt-1">MAKSAB</p>
-                    <button
-                      className="py-2 px-4 bg-green-500 text-white font-bold h-10 rounded-full hover:bg-green-700 border-b-4 border-green-700"
-                      onClick={handleHigherGuess}
-                    >
-                      ROHKEM
-                    </button>
-                    <button
-                      className=" py-2 px-4 m-1 bg-red-500 text-white font-bold h-10 rounded-full hover:bg-red-700 border-b-4 border-red-700"
-                      onClick={handleLowerGuess}
-                    >
-                      VÄHEM
-                    </button>
-                  </div>
+              <div className="h-48">
+                <p className="test font-bold text-xl">{curProduct.name}</p>
+                <p>{curProduct.chain}</p>
+                <div className="h-40">
+                  {displayCurPrice ? (
+                    <>
+                      {" "}
+                      <p className="font-bold text-xl mt-2">
+                        {curProduct?.price.toFixed(2)}€
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-gray-600 mt-1">MAKSAB</p>
+                      <button
+                        className="py-2 px-4 bg-green-500 text-white font-bold h-10 rounded-full hover:bg-green-700 border-b-4 border-green-700"
+                        onClick={handleHigherGuess}
+                      >
+                        ROHKEM
+                      </button>
+                      <button
+                        className=" py-2 px-4 m-1 bg-red-500 text-white font-bold h-10 rounded-full hover:bg-red-700 border-b-4 border-red-700"
+                        onClick={handleLowerGuess}
+                      >
+                        VÄHEM
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
-          
+          </div>
         </>
       ) : (
         <></>
