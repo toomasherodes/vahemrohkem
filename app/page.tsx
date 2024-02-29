@@ -113,8 +113,8 @@ export default function Home() {
 
   return (
     <main className="z-0">
-      <div className="w-full h-full absolute flex justify-around z-[-1]">
-        <div className="m-auto w-1 h-1/2 bg-black"></div>
+      <div className="w-full h-full absolute justify-center items-center flex z-[-1]">
+        <div className="w-1 h-2/3 bg-black"></div>
       </div>
       {curProduct ? (
         <>
