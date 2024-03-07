@@ -13,12 +13,14 @@ export default function Home() {
   const [prevProduct, setPrevProduct] = useState<productInterface>();
   const [curProduct, setCurProduct] = useState<productInterface>();
   const [backupProduct, setBackupProduct] = useState<productInterface>();
-
   const [data, setData] = useState<string[][]>();
   const [chains, setChains] = useState<string[]>([]);
   const [score, setScore] = useState<number>(0);
   const [moveToRightSide, setMoveToRightSide] = useState<boolean>(false);
   const [displayCurPrice, setDisplayCurPrice] = useState<boolean>(false);
+  const [displayWrongGuessMarker, setDisplayWrongGuessMarker] =
+    useState<boolean>(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -78,7 +80,7 @@ export default function Home() {
 
   const handleHigherGuess = () => {
     if (curProduct && prevProduct && curProduct?.price > prevProduct?.price) {
-      correctGuess();
+      wrongGuess(); // Peaks olema correctguess
     } else {
       wrongGuess();
     }
@@ -86,7 +88,7 @@ export default function Home() {
 
   const handleLowerGuess = () => {
     if (curProduct && prevProduct && curProduct?.price < prevProduct?.price) {
-      correctGuess();
+      correctGuess(); // Peaks olema wrongGuess
     } else {
       correctGuess();
     }
@@ -106,15 +108,24 @@ export default function Home() {
   };
 
   const wrongGuess = () => {
-    alert("Vale!");
-    setScore(0);
-    handleTestClick();
+    setDisplayWrongGuessMarker(true);
+    setDisplayCurPrice(true);
   };
 
   return (
     <main className="z-0">
-      <div className="w-full h-full absolute justify-center items-center flex z-[-1]">
-        <div className="w-1 h-2/3 bg-black"></div>
+      <div className="w-full h-full absolute flex justify-around z-[-1]">
+        <div className="m-auto w-1 h-1/2 bg-black flex flex-col justify-around">
+          {" "}
+          <div
+            className={classNames(
+              " w-20 h-20 bg-red-600 right-[calc(3.5rem-1.125rem)] relative rounded-full flex flex-col scale-0 duration-300",
+              { "scale-100": displayWrongGuessMarker }
+            )}
+          >
+            <img src="./pictures/rist.png" alt="" />
+          </div>
+        </div>
       </div>
       {curProduct ? (
         <>
@@ -187,9 +198,10 @@ export default function Home() {
       ) : (
         <></>
       )}
-      <h1 className="absolute top-5 right-10 font-bold text-xl">
+      <h1 className={classNames("absolute top-5 right-10 font-bold text-xl", {"animate-bounce text-2xl":displayWrongGuessMarker})}>
         Skoor: {score}
       </h1>
+      <img className="w-0" src={backupProduct?.imageLink} alt="" />
     </main>
   );
 }
