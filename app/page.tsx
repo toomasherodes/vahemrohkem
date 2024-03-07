@@ -80,7 +80,7 @@ export default function Home() {
 
   const handleHigherGuess = () => {
     if (curProduct && prevProduct && curProduct?.price > prevProduct?.price) {
-      wrongGuess(); // Peaks olema correctguess
+      correctGuess(); // Peaks olema correctguess
     } else {
       wrongGuess();
     }
@@ -90,9 +90,11 @@ export default function Home() {
     if (curProduct && prevProduct && curProduct?.price < prevProduct?.price) {
       correctGuess(); // Peaks olema wrongGuess
     } else {
-      correctGuess();
+      wrongGuess();
     }
   };
+
+  
 
   const correctGuess = async () => {
     setScore(score + 1);
@@ -115,22 +117,23 @@ export default function Home() {
   return (
     <main className="z-0">
       <div className="w-full h-full absolute flex justify-around z-[-1]">
-        <div className="m-auto w-1 h-1/2 bg-black flex flex-col justify-around">
+        <div className="m-auto w-1 h-2/3 bg-black flex flex-col justify-around">
           {" "}
           <div
             className={classNames(
               " w-20 h-20 bg-red-600 right-[calc(3.5rem-1.125rem)] relative rounded-full flex flex-col scale-0 duration-300",
               { "scale-100": displayWrongGuessMarker }
-            )}
+            )} 
           >
             <img src="./pictures/rist.png" alt="" />
+          
           </div>
         </div>
       </div>
       {curProduct ? (
         <>
           <div className="w-full h-screen flex justify-evenly bg-transparent">
-            <div className="flex flex-col items-center justify-center w-1/2 h-screen  text-center bg-transparent mt-4">
+            <div className="flex flex-col items-center justify-center w-1/2 h-screen  text-center bg-transparent pt-12">
               {moveToRightSide ? (
                 <></>
               ) : (
@@ -154,7 +157,7 @@ export default function Home() {
 
             <div
               className={classNames(
-                "flex flex-col items-center justify-center w-1/2 h-screen  text-center mt-4",
+                "flex flex-col items-center justify-center w-1/2 h-screen  text-center pt-12",
                 {
                   "-translate-x-full transition": moveToRightSide,
                 }
@@ -193,7 +196,16 @@ export default function Home() {
                 </div>
               </div>
             </div>
+            {displayWrongGuessMarker ?
+                
+                <div onClick={()=>{window.location.reload()}} className="flex absolute bottom-8 hover:cursor-pointer border py-2 px-4 m-1 bg-red-500 text-white font-bold h-10 rounded-full hover:bg-red-700 border-b-4 border-red-700" >
+                  proovi uuesti
+                </div>
+                :
+                <></>
+              }
           </div>
+          
         </>
       ) : (
         <></>
@@ -202,6 +214,8 @@ export default function Home() {
         Skoor: {score}
       </h1>
       <img className="w-0" src={backupProduct?.imageLink} alt="" />
+
+      
     </main>
   );
 }
