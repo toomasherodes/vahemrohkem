@@ -5,13 +5,13 @@ import csv
 word_blacklist = ["viin ", "õlu", "pesugeel", "pesupulber", "tualettpaber", "majapidamispaber", "muu", "tampoonid", "hügieenisidemed"]
 
 
-#req = Request(
-#    url='https://toiduained.hind24.ee/', 
-#    headers={'User-Agent': 'Mozilla/5.0'}
-#)
-#webpage_html = urlopen(req).read()
-f = open("test.html")
-webpage_html = f.read()
+req = Request(
+    url='https://toiduained.hind24.ee/', 
+    headers={'User-Agent': 'Mozilla/5.0'}
+)
+webpage_html = urlopen(req).read()
+#f = open("test.html")
+#webpage_html = f.read()
 soup = BeautifulSoup(webpage_html, "html.parser")
 products = soup.find_all('div', class_="stats-row")
 with open('./public/prices.csv', 'w', newline='') as csvfile:

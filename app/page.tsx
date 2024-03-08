@@ -73,28 +73,26 @@ export default function Home() {
   };
 
   const handleTestClick = () => {
-    setPrevProduct(curProduct);
     setCurProduct(backupProduct);
+    setPrevProduct(curProduct);
     setBackupProduct(getRandomProductWithPrice);
   };
 
   const handleHigherGuess = () => {
-    if (curProduct && prevProduct && curProduct?.price > prevProduct?.price) {
-      correctGuess(); // Peaks olema correctguess
+    if (curProduct && prevProduct && curProduct?.price >= prevProduct?.price) {
+      correctGuess();
     } else {
       wrongGuess();
     }
   };
 
   const handleLowerGuess = () => {
-    if (curProduct && prevProduct && curProduct?.price < prevProduct?.price) {
-      correctGuess(); // Peaks olema wrongGuess
+    if (curProduct && prevProduct && curProduct?.price <= prevProduct?.price) {
+      correctGuess();
     } else {
       wrongGuess();
     }
   };
-
-  
 
   const correctGuess = async () => {
     setScore(score + 1);
@@ -103,8 +101,8 @@ export default function Home() {
       setMoveToRightSide(true);
       setTimeout(() => {
         handleTestClick();
-        setMoveToRightSide(false);
         setDisplayCurPrice(false);
+        setMoveToRightSide(false);
       }, 350);
     }, 500);
   };
@@ -123,10 +121,9 @@ export default function Home() {
             className={classNames(
               " w-20 h-20 bg-red-600 right-[calc(3.5rem-1.125rem)] relative rounded-full flex flex-col scale-0 duration-300",
               { "scale-100": displayWrongGuessMarker }
-            )} 
+            )}
           >
             <img src="./pictures/rist.png" alt="" />
-          
           </div>
         </div>
       </div>
@@ -196,26 +193,30 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            {displayWrongGuessMarker ?
-                
-                <div onClick={()=>{window.location.reload()}} className="flex absolute bottom-8 hover:cursor-pointer border py-2 px-4 m-1 bg-red-500 text-white font-bold h-10 rounded-full hover:bg-red-700 border-b-4 border-red-700" >
-                  proovi uuesti
-                </div>
-                :
-                <></>
-              }
+            {displayWrongGuessMarker ? (
+              <div
+                onClick={() => {
+                  window.location.reload();
+                }}
+                className="flex justify-center flex-col absolute bottom-8 hover:cursor-pointer border px-4 m-1 bg-red-500 text-white font-bold h-10 rounded-full hover:bg-red-700 border-b-4 border-red-700"
+              >
+                proovi uuesti
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
-          
         </>
       ) : (
         <></>
       )}
-      <h1 className={classNames("absolute top-5 right-10 font-bold text-xl", {"animate-bounce text-2xl":displayWrongGuessMarker})}>
+      <h1
+        className={classNames("absolute top-5 right-10 font-bold text-xl", {
+          "animate-bounce text-2xl": displayWrongGuessMarker,
+        })}
+      >
         Skoor: {score}
       </h1>
-      <img className="w-0" src={backupProduct?.imageLink} alt="" />
-
-      
     </main>
   );
 }
